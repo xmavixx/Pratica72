@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 import static javafx.scene.input.KeyCode.T;
@@ -30,42 +32,29 @@ public class Pratica72 {
         
         ContadorPalavras contador = new ContadorPalavras(caminho);
         
-        HashMap contaPalavras = contador.getPalavras(); 
-        Object[] palavras = contaPalavras.keySet().toArray();
-        
-        int num = contaPalavras.size();
-        
-        int[] numeroDeVezes = new int[num];
-        String[] palavraRepetida = new String[num];
-        
-        for(int i = 0; i < palavras.length; i++) {
-            palavraRepetida[i] = (String) palavras[i];
-            numeroDeVezes[i] = (int) contaPalavras.get(palavraRepetida[i]);
-        }
-        
-        int aux;
-        String auxi;
-        
-        for(int i = 0; i < palavraRepetida.length; i++) {
-            for(int j = i+1; j < palavraRepetida.length; j++) {
-                if(numeroDeVezes[i] > numeroDeVezes[j]) {
-                    aux = numeroDeVezes[i];
-                    auxi = palavraRepetida[i];
-                    numeroDeVezes[i] = numeroDeVezes[j];
-                    palavraRepetida[i] = palavraRepetida[j];
-                    numeroDeVezes[j] = aux;
-                    palavraRepetida[j] = auxi;
-                }
-            }
-        }
-        
-        BufferedWriter bw = new BufferedWriter(new FileWriter(caminho + ".out"));
-         for(int i = 0; i < palavraRepetida.length; i++){
-             bw.write(palavraRepetida[i] + "," + numeroDeVezes[i]);
-             bw.newLine();
-         }
+        HashMap<String, Integer> contaPalavras = contador.getPalavras(); 
+        List lista = new LinkedList();
 
-         bw.close();
+        lista.addAll(contaPalavras.values());
+        Collections.sort(lista);
+        Set<Map.Entry<String, Integer>> entries;
+
+        BufferedWriter saida = new BufferedWriter(new FileWriter(caminho + ".out"));
+        
+        for (Object j: lista) {
+        
+            entries = contaPalavras.entrySet();
+            for (Map.Entry<String, Integer> entry: entries) {
+                    if(entry.getValue() == j) {
+                        saida.write(entry.getKey() + "," + entry.getValue());
+                        saida.newLine();
+                        contaPalavras.remove(entry.getKey());
+                        break;
+                    }
+                }
+
+            }
+            saida.close();
         
     }
 }
