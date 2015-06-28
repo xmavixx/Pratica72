@@ -21,21 +21,13 @@ public class ContadorPalavras {
     private String lugar;
     private BufferedReader reader; 
  
-    public ContadorPalavras(String lugar) {
+    public ContadorPalavras(String lugar) throws FileNotFoundException {
         this.lugar = lugar;
-        
-        try {
-            reader = new BufferedReader(new FileReader(lugar));
-        }catch(FileNotFoundException e) {
-        }
+        reader = new BufferedReader(new FileReader(lugar));
     }
     
     public HashMap getPalavras() throws IOException {
-        int numPalavras = 0;
         HashMap<String, Integer> contador = new HashMap();
-        boolean fim = true, achou = false;
-        String palavra;
-        numPalavras = 0;
         
         String line = reader.readLine();
         
@@ -43,7 +35,7 @@ public class ContadorPalavras {
             StringTokenizer t = new StringTokenizer(line," \n\r\t");
             
             while(t.hasMoreTokens()) {
-                String s1 = t.nextToken().toLowerCase();
+                String s1 = t.nextToken();
                 
                 if(contador.containsKey(s1)) {
                     int num = contador.get(s1) + 1;
