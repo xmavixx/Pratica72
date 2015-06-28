@@ -19,13 +19,13 @@ import java.util.StringTokenizer;
  */
 public class ContadorPalavras {
     private String lugar;
-    private BufferedReader caminho; 
+    private BufferedReader reader; 
  
     public ContadorPalavras(String lugar) {
         this.lugar = lugar;
         
         try {
-            caminho = new BufferedReader(new FileReader(lugar));
+            reader = new BufferedReader(new FileReader(lugar));
         }catch(FileNotFoundException e) {
         }
     }
@@ -37,7 +37,7 @@ public class ContadorPalavras {
         String palavra;
         numPalavras = 0;
         
-        String line = caminho.readLine();
+        String line = reader.readLine();
         
         while(line != null) {
             StringTokenizer t = new StringTokenizer(line," \n\r\t");
@@ -53,10 +53,10 @@ public class ContadorPalavras {
                     contador.put(s1, 1);
                 }
             }
-            line = caminho.readLine();
+            line = reader.readLine();
         }
         
-        caminho.close();
+        reader.close();
         
         return contador;
     }
