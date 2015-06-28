@@ -26,7 +26,7 @@ public class Pratica72 {
         String caminho;
         
         System.out.println("Digite o caminho completo do arquivo: ");
-        caminho = scanner.nextLine();
+        caminho = scanner.next();
         
         ContadorPalavras contador = new ContadorPalavras(caminho);
         
