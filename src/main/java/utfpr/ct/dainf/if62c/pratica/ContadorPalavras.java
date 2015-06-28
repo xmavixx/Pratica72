@@ -18,11 +18,16 @@ import java.util.StringTokenizer;
  * @author askoda
  */
 public class ContadorPalavras {
-    private BufferedReader caminho;
-    
-    
-    public ContadorPalavras (String caminho) throws FileNotFoundException {
-        this.caminho = new BufferedReader(new FileReader(caminho));
+    private String lugar;
+    private BufferedReader caminho; 
+ 
+    public ContadorPalavras(String lugar) {
+        this.lugar = lugar;
+        
+        try {
+            caminho = new BufferedReader(new FileReader(lugar));
+        }catch(FileNotFoundException e) {
+        }
     }
     
     public HashMap getPalavras() throws IOException {
