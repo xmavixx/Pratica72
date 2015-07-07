@@ -1,3 +1,3 @@
 # Pratica72
 
-GIthub: aronzavelinsk
+GIthub: aronzavelinski
